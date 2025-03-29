@@ -1,28 +1,29 @@
 -- ========== ANTI STAFF ========== --
-local stuff = {"Lookson_Games", "fado105", "McTonger", "koniczynka21", "IlorazX"} --nickname administracji
-local plrs = game:GetService("Players")
-local me = plrs.LocalPlayer
-local function checkThing()
-    for i, v in ipairs(plrs:GetPlayers()) do
-        for x, y in ipairs(stuff) do
-            if v.Name == y then
-                me:Kick("Staff detected") --kicka z ta wiadomoscia
+local adminNames = {"Lookson_Games", "fado105", "McTonger", "koniczynka21", "IlorazX"} --nickname administracji
+local playersService = game:GetService("Players")
+local currentPlayer = playersService.LocalPlayer
+
+local function checkForAdmins()
+    for _, player in ipairs(playersService:GetPlayers()) do
+        for _, admin in ipairs(adminNames) do
+            if player.Name == admin then
+                currentPlayer:Kick("Staff detected") --kicka z tą wiadomością
                 return
             end
         end
     end
 end
-checkThing()
-plrs.PlayerAdded:Connect(
-    function(p)
-        checkThing()
-    end
-)
+
+checkForAdmins()
+
+playersService.PlayerAdded:Connect(function(newPlayer)
+    checkForAdmins()
+end)
+
 while true do
-    checkThing()
+    checkForAdmins()
     task.wait()
 end
-
 
 -- ========== AUTO FARM ========== --
 local a = game:GetService("Players").LocalPlayer
