@@ -93,13 +93,9 @@ task.spawn(
                     function()
                         local E = v(A)
                         A = E or b
-                        if E then
-                            print("New target:", E)
-                        end
                     end
                 )
                 if not C then
-                    warn("Cycle error:", D)
                     task.wait(2)
                 end
             end
