@@ -1,3 +1,29 @@
+-- ========== ANTI STAFF ========== --
+local a = {"Lookson_Games", "fado105", "McTonger", "koniczynka21", "IlorazX"} --nickname administracji
+local b = game:GetService("Players")
+local c = b.LocalPlayer
+local function d()
+    for e, f in ipairs(b:GetPlayers()) do
+        for e, g in ipairs(a) do
+            if f.Name == g then
+                c:Kick("Staff detected") --kicka z ta wiado wiadomoscia
+                return
+            end
+        end
+    end
+end
+d()
+b.PlayerAdded:Connect(
+    function(f)
+        d()
+    end
+)
+while true do
+    d()
+    task.wait()
+end
+
+-- ========== AUTO FARM ========== --
 local a = game:GetService("Players").LocalPlayer
 local b = CFrame.new(12195.0693359375, 4.618614196777344, -5341.66259765625)
 local c =
@@ -67,7 +93,7 @@ local function v(w)
         return nil
     end
     y.CFrame = CFrame.new(y.Position, j.Parent.Position)
-    fireproximityprompt(j)
+    fireproximityprompt(j) 
     task.wait(1.5)
     local z = m()
     if not z then
