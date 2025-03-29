@@ -68,7 +68,7 @@ local function v(w)
     end
     y.CFrame = CFrame.new(y.Position, j.Parent.Position)
     fireproximityprompt(j)
-    task.wait()
+    task.wait(0.5)
     local z = m()
     if not z then
         return nil
