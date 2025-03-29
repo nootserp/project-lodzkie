@@ -1,4 +1,3 @@
--- ========== AUTO FARM ========== --
 local a = game:GetService("Players").LocalPlayer
 local b = CFrame.new(12195.0693359375, 4.618614196777344, -5341.66259765625)
 local c =
@@ -14,7 +13,7 @@ local function d(e)
         if j:IsA("ProximityPrompt") and j.Enabled then
             local k = j.Parent
             if k:IsA("BasePart") then
-                local l = f.Position - k.Position.Magnitude
+                local l = (f.Position - k.Position).Magnitude
                 if l < h and l <= j.MaxActivationDistance then
                     h = l
                     g = j
@@ -36,7 +35,7 @@ local function m()
     end
     local q = p:FindFirstChild("DeliverTo")
     if q and q:IsA("TextLabel") then
-        return q.Text:match("To: (.*)") or "text not found"
+        return q.Text:match("To: (.*)") or "Text pattern not found"
     end
     return nil
 end
@@ -56,7 +55,7 @@ local function v(w)
     e:WaitForChild("HumanoidRootPart")
     local x = tick()
     local y = e.HumanoidRootPart
-    while tick() - x < 3 do
+    while tick() - x < 2 do
         if not e.Parent then
             return nil
         end
@@ -68,13 +67,16 @@ local function v(w)
         return nil
     end
     y.CFrame = CFrame.new(y.Position, j.Parent.Position)
-    fireproximityprompt(j) 
+    fireproximityprompt(j)
     task.wait(1.5)
     local z = m()
     if not z then
         return nil
     end
     return r(z)
+end
+if not c then
+    error("could not find delivery locations folder")
 end
 task.spawn(
     function()
@@ -94,12 +96,17 @@ task.spawn(
                     function()
                         local E = v(A)
                         A = E or b
+                        if E then
+                            print("mew target:", E)
+                        end
                     end
                 )
                 if not C then
+                    warn("cycle error:", D)
                     task.wait(2)
                 end
             end
+            warn("character died - waiting for respawn...")
         end
     end
 )
